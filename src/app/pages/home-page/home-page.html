@@ -1,7 +1,4 @@
 <div class="container py-4">
-  <div class="mb-4">
-    <h1 class="page-title mb-1">Vitrine de Tênis</h1>
-  </div>
 
   <ng-container *ngIf="ready$ | async; else loadingState">
     <div class="row g-4" *ngIf="filteredProducts$ | async as products">
