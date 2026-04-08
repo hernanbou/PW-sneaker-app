@@ -1,5 +1,116 @@
+.cart-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: clamp(1.4rem, 3vw, 2.2rem);
+}
+
+.card {
+  color: var(--retro-cream);
+  border-color: rgba(246, 231, 199, 0.16) !important;
+  background: rgba(7, 6, 8, 0.54);
+}
+
+.card::before {
+  background: linear-gradient(90deg, var(--retro-gold), var(--retro-burgundy), var(--retro-green));
+}
+
+.cart-table tbody tr {
+  transition: background 0.2s ease;
+}
+
+.cart-table tbody tr:hover {
+  background: rgba(246, 231, 199, 0.04);
+}
+
 .cart-image {
-  width: 72px;
-  height: 72px;
+  width: 84px;
+  height: 84px;
   object-fit: cover;
+  border: 2px solid rgba(246, 231, 199, 0.18);
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.cart-item-name {
+  max-width: 20rem;
+  color: #fff;
+  font-weight: 700;
+}
+
+.cart-item-size,
+.cart-item-value {
+  color: #fff;
+  font-weight: 700;
+}
+
+.cart-summary-label {
+  color: rgba(246, 231, 199, 0.72);
+  font-family: var(--retro-font-display);
+  font-size: 1rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 767px) {
+  .cart-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .cart-table thead {
+    display: none;
+  }
+
+  .cart-table,
+  .cart-table tbody,
+  .cart-table tr,
+  .cart-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .cart-table tbody {
+    display: grid;
+    gap: 1rem;
+    padding: 1rem;
+  }
+
+  .cart-table tbody tr {
+    display: grid;
+    gap: 0.75rem;
+    padding: 1rem;
+    border: 1px solid rgba(246, 231, 199, 0.12);
+    border-radius: 1.25rem;
+    background: rgba(255, 255, 255, 0.03);
+  }
+
+  .cart-table td {
+    padding: 0;
+    border: 0;
+    text-align: left !important;
+  }
+
+  .cart-table td::before {
+    content: attr(data-label);
+    display: block;
+    margin-bottom: 0.25rem;
+    color: rgba(246, 231, 199, 0.62);
+    font-family: var(--retro-font-display);
+    font-size: 0.9rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .cart-table td:first-child::before {
+    display: none;
+  }
+
+  .cart-table td:last-child .retro-btn {
+    width: 100%;
+  }
+
+  .cart-item-name {
+    max-width: none;
+  }
 }

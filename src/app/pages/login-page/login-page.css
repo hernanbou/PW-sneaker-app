@@ -1,4 +1,70 @@
 .login-page {
   min-height: 100vh;
-  background: linear-gradient(135deg, #111827 0%, #1f2937 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.login-page::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 12% 24%, rgba(228, 170, 26, 0.18), transparent 24%),
+    radial-gradient(circle at 86% 14%, rgba(88, 180, 138, 0.16), transparent 18%);
+}
+
+.auth-story,
+.auth-secondary {
+  height: 100%;
+}
+
+.auth-story-inner,
+.auth-secondary-inner {
+  padding: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+.auth-story .retro-title {
+  max-width: 8ch;
+}
+
+.auth-story-stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.auth-card .card-body {
+  position: relative;
+  z-index: 1;
+}
+
+.auth-bullet-list {
+  display: grid;
+  gap: 0.75rem;
+  padding-left: 1.1rem;
+  color: rgba(23, 19, 20, 0.82);
+  font-weight: 600;
+}
+
+.auth-bullet-list li::marker {
+  color: var(--retro-burgundy);
+}
+
+@media (max-width: 1199px) {
+  .auth-story .retro-title {
+    max-width: none;
+  }
+}
+
+@media (max-width: 575px) {
+  .auth-story-inner,
+  .auth-secondary-inner,
+  .auth-card .card-body {
+    padding: 1.2rem !important;
+  }
+
+  .auth-story-stats {
+    grid-template-columns: 1fr;
+  }
 }

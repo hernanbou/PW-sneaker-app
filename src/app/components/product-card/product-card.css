@@ -1,13 +1,121 @@
 .product-card {
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  position: relative;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
 }
 
 .product-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 0.85rem 1.6rem rgba(0, 0, 0, 0.08);
+  transform: translateY(-8px) rotate(-0.4deg);
+  box-shadow: 0 28px 48px rgba(0, 0, 0, 0.22);
+}
+
+.product-card-media {
+  padding: 1rem 1rem 0;
 }
 
 .product-image {
-  height: 220px;
+  height: 240px;
   object-fit: cover;
+  border: 2px solid rgba(23, 19, 20, 0.22);
+  border-radius: 1.25rem;
+  background: rgba(255, 255, 255, 0.45);
+}
+
+.product-badge {
+  position: absolute;
+  top: 1.8rem;
+}
+
+.product-badge-featured {
+  left: 1.8rem;
+  color: var(--retro-ink);
+  background: var(--retro-gold) !important;
+}
+
+.product-badge-stock {
+  right: 1.8rem;
+}
+
+.product-card-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.product-card-title {
+  color: var(--retro-ink);
+  font-size: 1.85rem;
+  line-height: 0.92;
+}
+
+.product-card-caption {
+  min-height: 3rem;
+  color: rgba(23, 19, 20, 0.68);
+  font-weight: 600;
+}
+
+.product-card-footer {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.product-card-price {
+  color: var(--retro-burgundy);
+}
+
+.product-card-stock {
+  padding: 0.35rem 0.7rem;
+  border-radius: 0.8rem;
+  color: #1c6b54;
+  font-weight: 700;
+  text-align: right;
+  background: rgba(88, 180, 138, 0.16);
+}
+
+.product-card-stock.is-out {
+  color: #9d1d1d;
+  background: rgba(182, 56, 42, 0.12);
+}
+
+@media (hover: none) {
+  .product-card:hover {
+    transform: none;
+    box-shadow: var(--retro-shadow);
+  }
+}
+
+@media (max-width: 575px) {
+  .product-image {
+    height: 220px;
+  }
+
+  .product-card-media {
+    padding: 0.85rem 0.85rem 0;
+  }
+
+  .product-badge {
+    top: 1.45rem;
+  }
+
+  .product-badge-featured {
+    left: 1.35rem;
+  }
+
+  .product-badge-stock {
+    right: 1.35rem;
+  }
+
+  .product-card-title {
+    font-size: 1.6rem;
+  }
+
+  .product-card-caption {
+    min-height: auto;
+  }
+
+  .product-card-footer {
+    align-items: flex-start;
+    flex-direction: column;
+  }
 }

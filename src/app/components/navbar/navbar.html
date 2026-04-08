@@ -1,27 +1,36 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top shadow-sm">
+<nav class="navbar navbar-expand-lg fixed-top retro-navbar">
+  <div class="retro-navbar-tape">
+    <div class="container retro-navbar-tape-inner">
+      <span>boom bap sneakers</span>
+      <span>street archive</span>
+      <span>fresh drops</span>
+    </div>
+  </div>
+
   <div class="container navbar-layout">
     <button
       type="button"
       class="navbar-brand brand-button"
       (click)="goToHome()"
     >
-      Sneaker Store
+      <span class="brand-mark">Sneaker Store</span>
+      <span class="brand-submark">rap tape edition</span>
     </button>
 
     <div class="navbar-search-wrapper">
       <form
-        class="d-flex gap-2 w-100"
+        class="d-flex gap-2 w-100 retro-search-form"
         [formGroup]="searchForm"
         (ngSubmit)="submitSearch()"
       >
         <input
           type="search"
-          class="form-control"
+          class="form-control retro-search-input"
           formControlName="term"
-          placeholder="Buscar..."
+          placeholder="Busque seu pisante..."
         />
-        <button type="submit" class="btn btn-warning fw-semibold px-4">
-          OK
+        <button type="submit" class="btn retro-btn retro-btn-primary navbar-search-submit">
+          Buscar
         </button>
       </form>
     </div>
@@ -29,7 +38,7 @@
     <div class="navbar-actions desktop-actions">
       <button
         type="button"
-        class="btn btn-outline-light"
+        class="btn retro-btn retro-btn-outline retro-nav-button"
         (click)="goToCart()"
       >
         Carrinho
@@ -37,10 +46,10 @@
 
       <button
         type="button"
-        class="btn btn-outline-light d-flex align-items-center gap-2"
+        class="btn retro-btn retro-btn-dark retro-nav-button d-flex align-items-center gap-2"
         (click)="goToUser()"
       >
-        <span class="fs-5"><img src="images/user-icon.svg" alt="User Icon"></span>
+        <span class="nav-icon"><img src="/user-icon.svg" alt="User Icon"></span>
         <span class="d-none d-md-inline">{{ currentUserLabel }}</span>
       </button>
     </div>
@@ -53,7 +62,7 @@
       [attr.aria-label]="isMobileMenuOpen ? 'Fechar menu' : 'Abrir menu'"
     >
       <img
-        [src]="isMobileMenuOpen ? 'images/menu-x-icon.svg' : 'images/menu-icon.svg'"
+        [src]="isMobileMenuOpen ? '/menu-x-icon.svg' : '/menu-icon.svg'"
         [alt]="isMobileMenuOpen ? 'Fechar menu' : 'Abrir menu'"
       />
     </button>
@@ -68,9 +77,16 @@
   ></button>
 
   <div class="mobile-menu-panel" [class.is-open]="isMobileMenuOpen">
+    <div class="mobile-menu-header">
+      <span class="retro-kicker">Street menu</span>
+      <p class="mobile-menu-copy mb-0">
+        Acesso rapido ao seu carrinho e perfil.
+      </p>
+    </div>
+
     <button
       type="button"
-      class="btn btn-outline-light mobile-menu-action"
+      class="btn retro-btn retro-btn-outline mobile-menu-action"
       (click)="goToCart()"
     >
       Carrinho
@@ -78,10 +94,10 @@
 
     <button
       type="button"
-      class="btn btn-outline-light mobile-menu-action d-flex align-items-center justify-content-center gap-2"
+      class="btn retro-btn retro-btn-dark mobile-menu-action d-flex align-items-center justify-content-center gap-2"
       (click)="goToUser()"
     >
-      <span class="fs-5"><img src="images/user-icon.svg" alt="User Icon"></span>
+      <span class="nav-icon"><img src="/user-icon.svg" alt="User Icon"></span>
       <span>{{ currentUserLabel }}</span>
     </button>
   </div>

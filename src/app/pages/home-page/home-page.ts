@@ -18,6 +18,9 @@ export class HomePage {
   private readonly searchService = inject(SearchService);
 
   readonly ready$ = this.productService.ready$;
+  readonly hasActiveSearch$ = this.searchService.term$.pipe(
+    map((term) => term.trim().length > 0)
+  );
 
   readonly filteredProducts$ = combineLatest([
     this.productService.products$,

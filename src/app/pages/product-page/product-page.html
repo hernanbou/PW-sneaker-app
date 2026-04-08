@@ -1,49 +1,98 @@
-<div class="container py-4">
-  <button type="button" class="btn btn-outline-secondary mb-4" (click)="goBackHome()">
-    Voltar
+<div class="container py-4 py-lg-5 retro-page">
+  <button type="button" class="btn retro-btn retro-btn-outline mb-4" (click)="goBackHome()">
+    Voltar para o catalogo
   </button>
 
   <ng-container *ngIf="ready$ | async; else loadingState">
     <ng-container *ngIf="product$ | async as product; else notFoundState">
+      <section class="product-page-header mb-4">
+        <span class="retro-kicker mb-3">{{ product.brand || 'Street archive' }}</span>
+        <h1 class="retro-title mb-3">{{ product.name }}</h1>
+        <p class="retro-subtitle is-light mb-0">
+          {{ product.description }}
+        </p>
+      </section>
+
       <div class="row g-4 align-items-start">
         <div class="col-12 col-lg-6">
-          <div class="card border-0 shadow-sm">
+          <div class="retro-panel product-gallery-panel">
+            <div class="product-gallery-strip">
+              <span>{{ product.line || product.category || 'Classic line' }}</span>
+              <span *ngIf="product.featured">Featured drop</span>
+            </div>
+
             <img
               [src]="product.image"
               [alt]="product.name"
               class="img-fluid product-detail-image"
             />
+
+            <div class="product-gallery-footer">
+              <span>{{ product.colorway || 'Colorway de rua' }}</span>
+              <span>Estoque: {{ product.stock }}</span>
+            </div>
           </div>
         </div>
 
         <div class="col-12 col-lg-6">
-          <div class="card border-0 shadow-sm">
+          <div class="card border-0 shadow-sm product-detail-card">
             <div class="card-body p-4">
-              <h1 class="h2 mb-3">{{ product.name }}</h1>
+              <div class="product-detail-meta mb-4">
+                <span class="retro-mini-chip" *ngIf="product.category">{{ product.category }}</span>
+                <span class="retro-mini-chip" *ngIf="product.gender">{{ product.gender }}</span>
+                <span class="retro-mini-chip" *ngIf="product.model">{{ product.model }}</span>
+              </div>
 
-              <p class="text-muted mb-3">
-                {{ product.description }}
-              </p>
+              <div class="retro-stat-grid mb-4">
+                <div class="retro-stat">
+                  <span class="retro-stat-label">Preco</span>
+                  <strong class="retro-stat-value">
+                    {{ product.price | currency: 'BRL' : 'symbol' : '1.2-2' }}
+                  </strong>
+                </div>
 
-              <p class="fs-3 fw-bold mb-3">
-                {{ product.price | currency: 'BRL' : 'symbol' : '1.2-2' }}
-              </p>
+                <div class="retro-stat" *ngIf="product.rating">
+                  <span class="retro-stat-label">Nota</span>
+                  <strong class="retro-stat-value">{{ product.rating }}/5</strong>
+                </div>
 
-              <p class="mb-4" [class.text-danger]="product.stock === 0" [class.text-success]="product.stock > 0">
-                Estoque disponível: {{ product.stock }}
-              </p>
+                <div class="retro-stat" *ngIf="product.reviewCount">
+                  <span class="retro-stat-label">Reviews</span>
+                  <strong class="retro-stat-value">{{ product.reviewCount }}</strong>
+                </div>
+
+                <div class="retro-stat">
+                  <span class="retro-stat-label">Estoque</span>
+                  <strong class="retro-stat-value">{{ product.stock }}</strong>
+                </div>
+              </div>
+
+              <div class="retro-chip-row mb-4" *ngIf="product.tags?.length">
+                <span class="retro-chip" *ngFor="let tag of product.tags | slice:0:4">
+                  {{ tag }}
+                </span>
+              </div>
+
+              <div class="product-feature-block mb-4" *ngIf="product.features?.length">
+                <p class="product-block-label mb-3">Destaques do par</p>
+                <ul class="product-feature-list mb-0">
+                  <li *ngFor="let feature of product.features">
+                    {{ feature }}
+                  </li>
+                </ul>
+              </div>
 
               <div class="mb-4">
-                <label class="form-label fw-semibold d-block">
+                <label class="form-label d-block">
                   Selecione o tamanho
                 </label>
 
-                <div class="d-flex flex-wrap gap-2">
+                <div class="size-grid">
                   <button
                     type="button"
-                    class="btn"
+                    class="btn size-button"
                     *ngFor="let size of product.sizes"
-                    [ngClass]="selectedSize === size ? 'btn-dark' : 'btn-outline-dark'"
+                    [class.is-selected]="selectedSize === size"
                     (click)="selectSize(size)"
                   >
                     {{ size }}
@@ -61,11 +110,11 @@
 
               <button
                 type="button"
-                class="btn btn-dark btn-lg w-100"
+                class="btn retro-btn retro-btn-primary btn-lg w-100"
                 (click)="addToCart(product)"
                 [disabled]="product.stock === 0"
               >
-                Adicionar ao carrinho
+                {{ product.stock === 0 ? 'Sem estoque no momento' : 'Adicionar ao carrinho' }}
               </button>
             </div>
           </div>
@@ -79,6 +128,6 @@
   </ng-template>
 
   <ng-template #notFoundState>
-    <div class="alert alert-warning">Produto não encontrado.</div>
+    <div class="alert alert-warning">Produto nao encontrado.</div>
   </ng-template>
 </div>

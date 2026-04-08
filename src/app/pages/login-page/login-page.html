@@ -1,72 +1,117 @@
 <div class="login-page d-flex align-items-center">
-  <div class="container">
-    <div class="row justify-content-center g-4">
-      <div class="col-12 col-lg-5">
-        <div class="card shadow border-0">
-          <div class="card-body p-4 p-md-5">
-            <h1 class="h3 mb-4 text-center">Entrar</h1>
+  <div class="container py-4 py-lg-5">
+    <div class="row g-4 align-items-stretch">
+      <div class="col-12 col-xl-5">
+        <section class="retro-panel auth-story h-100">
+          <div class="auth-story-inner">
+            <span class="retro-kicker mb-3">Street login</span>
+            <h1 class="retro-title mb-3">O corre comeca aqui.</h1>
+            <p class="retro-subtitle mb-4">
+              Entre para salvar seus pares, segurar o carrinho e circular por
+              um catalogo com alma de mixtape noventista.
+            </p>
 
-            <div class="alert alert-success" *ngIf="successMessage">
-              {{ successMessage }}
+            <div class="retro-chip-row mb-4">
+              <span class="retro-chip">boom bap visual</span>
+              <span class="retro-chip">street archive</span>
+              <span class="retro-chip">drops selecionados</span>
             </div>
 
-            <div class="alert alert-danger" *ngIf="errorMessage">
-              {{ errorMessage }}
+            <div class="auth-story-stats">
+              <div class="retro-stat">
+                <span class="retro-stat-label">Vibe</span>
+                <strong class="retro-stat-value">90s</strong>
+              </div>
+
+              <div class="retro-stat">
+                <span class="retro-stat-label">Mood</span>
+                <strong class="retro-stat-value">Heavy</strong>
+              </div>
             </div>
-
-            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" novalidate>
-              <div class="mb-3">
-                <label for="email" class="form-label">E-mail</label>
-                <input
-                  id="email"
-                  type="email"
-                  class="form-control"
-                  formControlName="email"
-                  [class.is-invalid]="hasError('email')"
-                />
-                <div class="invalid-feedback" *ngIf="hasError('email', 'required')">
-                  Informe o e-mail.
-                </div>
-                <div class="invalid-feedback" *ngIf="hasError('email', 'email')">
-                  Informe um e-mail válido.
-                </div>
-              </div>
-
-              <div class="mb-4">
-                <label for="password" class="form-label">Senha</label>
-                <input
-                  id="password"
-                  type="password"
-                  class="form-control"
-                  formControlName="password"
-                  [class.is-invalid]="hasError('password')"
-                />
-                <div class="invalid-feedback" *ngIf="hasError('password', 'required')">
-                  Informe a senha.
-                </div>
-                <div class="invalid-feedback" *ngIf="hasError('password', 'minlength')">
-                  A senha deve ter pelo menos 6 caracteres.
-                </div>
-              </div>
-
-              <button type="submit" class="btn btn-dark w-100">
-                Entrar
-              </button>
-            </form>
           </div>
-        </div>
+        </section>
       </div>
 
-      <div class="col-12 col-lg-4">
-        <div class="card shadow border-0 h-100">
-          <div class="card-body p-4 p-md-5 d-flex flex-column justify-content-center">
-            <h2 class="h4 mb-3">Não é cadastrado?</h2>
-            <p class="text-muted mb-4">
-              Crie sua conta para salvar seus dados localmente e usar o carrinho.
-            </p>
-            <a routerLink="/register" class="btn btn-outline-dark">
-              Clique aqui para se cadastrar
-            </a>
+      <div class="col-12 col-xl-7">
+        <div class="row g-4 h-100">
+          <div class="col-12 col-lg-7">
+            <div class="card shadow border-0 auth-card h-100">
+              <div class="card-body p-4 p-md-5">
+                <span class="retro-kicker mb-3">Login session</span>
+                <h2 class="retro-title is-medium mb-4">Entrar</h2>
+
+                <div class="alert alert-success" *ngIf="successMessage">
+                  {{ successMessage }}
+                </div>
+
+                <div class="alert alert-danger" *ngIf="errorMessage">
+                  {{ errorMessage }}
+                </div>
+
+                <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" novalidate>
+                  <div class="mb-3">
+                    <label for="email" class="form-label">E-mail</label>
+                    <input
+                      id="email"
+                      type="email"
+                      class="form-control"
+                      formControlName="email"
+                      [class.is-invalid]="hasError('email')"
+                    />
+                    <div class="invalid-feedback" *ngIf="hasError('email', 'required')">
+                      Informe o e-mail.
+                    </div>
+                    <div class="invalid-feedback" *ngIf="hasError('email', 'email')">
+                      Informe um e-mail valido.
+                    </div>
+                  </div>
+
+                  <div class="mb-4">
+                    <label for="password" class="form-label">Senha</label>
+                    <input
+                      id="password"
+                      type="password"
+                      class="form-control"
+                      formControlName="password"
+                      [class.is-invalid]="hasError('password')"
+                    />
+                    <div class="invalid-feedback" *ngIf="hasError('password', 'required')">
+                      Informe a senha.
+                    </div>
+                    <div class="invalid-feedback" *ngIf="hasError('password', 'minlength')">
+                      A senha deve ter pelo menos 6 caracteres.
+                    </div>
+                  </div>
+
+                  <button type="submit" class="btn retro-btn retro-btn-primary w-100">
+                    Entrar no set
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-lg-5">
+            <div class="retro-panel auth-secondary h-100">
+              <div class="auth-secondary-inner">
+                <span class="retro-kicker mb-3">Primeira vez?</span>
+                <h2 class="retro-title is-medium mb-3">Monte sua conta</h2>
+                <p class="retro-subtitle mb-4">
+                  Crie um perfil local para guardar dados, acelerar o carrinho e
+                  voltar para o drop sem perder o ritmo.
+                </p>
+
+                <ul class="auth-bullet-list mb-4">
+                  <li>cadastro local e rapido</li>
+                  <li>carrinho pronto para a proxima compra</li>
+                  <li>visual com identidade de rua</li>
+                </ul>
+
+                <a routerLink="/register" class="btn retro-btn retro-btn-dark w-100">
+                  Clique aqui para se cadastrar
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       </div>

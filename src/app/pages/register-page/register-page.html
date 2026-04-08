@@ -1,12 +1,44 @@
-<div class="container py-4">
-  <div class="row justify-content-center">
-    <div class="col-12 col-xl-10">
-      <div class="card shadow border-0">
+<div class="container py-4 py-lg-5 retro-page">
+  <div class="row g-4 align-items-start">
+    <div class="col-12 col-xl-4">
+      <aside class="retro-panel register-story">
+        <div class="register-story-inner">
+          <span class="retro-kicker mb-3">Join the crew</span>
+          <h1 class="retro-title mb-3">Cadastro com cara de flyer.</h1>
+          <p class="retro-subtitle mb-4">
+            Monte seu perfil para salvar dados localmente e deixar o checkout
+            pronto quando bater o proximo drop.
+          </p>
+
+          <div class="retro-chip-row mb-4">
+            <span class="retro-chip">perfil local</span>
+            <span class="retro-chip">street ready</span>
+            <span class="retro-chip">sem visual generico</span>
+          </div>
+
+          <div class="retro-stat-grid">
+            <div class="retro-stat">
+              <span class="retro-stat-label">Conta</span>
+              <strong class="retro-stat-value">Local</strong>
+            </div>
+
+            <div class="retro-stat">
+              <span class="retro-stat-label">Estilo</span>
+              <strong class="retro-stat-value">90s</strong>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </div>
+
+    <div class="col-12 col-xl-8">
+      <div class="card shadow border-0 register-card">
         <div class="card-body p-4 p-md-5">
           <div class="mb-4">
-            <h1 class="h3 mb-1">Cadastro</h1>
-            <p class="text-muted mb-0">
-              Preencha os dados para criar seu usuário local.
+            <span class="retro-kicker mb-3">Ficha do integrante</span>
+            <h2 class="retro-title is-medium mb-2">Cadastro</h2>
+            <p class="retro-subtitle mb-0">
+              Preencha os dados para criar seu usuario local.
             </p>
           </div>
 
@@ -16,6 +48,10 @@
 
           <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" novalidate>
             <div class="row g-3">
+              <div class="col-12">
+                <div class="form-section-label">Identidade</div>
+              </div>
+
               <div class="col-12">
                 <label for="fullName" class="form-label">Nome completo</label>
                 <input
@@ -46,7 +82,7 @@
                   Informe o e-mail.
                 </div>
                 <div class="invalid-feedback" *ngIf="hasError('email', 'email')">
-                  Informe um e-mail válido.
+                  Informe um e-mail valido.
                 </div>
               </div>
 
@@ -64,7 +100,7 @@
                   Informe o CPF.
                 </div>
                 <div class="invalid-feedback" *ngIf="hasError('cpf', 'pattern')">
-                  Informe um CPF válido.
+                  Informe um CPF valido.
                 </div>
               </div>
 
@@ -116,7 +152,7 @@
                   Informe o celular.
                 </div>
                 <div class="invalid-feedback" *ngIf="hasError('phone', 'pattern')">
-                  Informe um celular válido.
+                  Informe um celular valido.
                 </div>
               </div>
 
@@ -134,12 +170,16 @@
                   Informe o CEP.
                 </div>
                 <div class="invalid-feedback" *ngIf="hasError('cep', 'pattern')">
-                  Informe um CEP válido.
+                  Informe um CEP valido.
                 </div>
               </div>
 
+              <div class="col-12 mt-4">
+                <div class="form-section-label">Entrega</div>
+              </div>
+
               <div class="col-md-8">
-                <label for="address" class="form-label">Endereço</label>
+                <label for="address" class="form-label">Endereco</label>
                 <input
                   id="address"
                   type="text"
@@ -148,12 +188,12 @@
                   [class.is-invalid]="hasError('address')"
                 />
                 <div class="invalid-feedback" *ngIf="hasError('address', 'required')">
-                  Informe o endereço.
+                  Informe o endereco.
                 </div>
               </div>
 
               <div class="col-md-4">
-                <label for="number" class="form-label">Número</label>
+                <label for="number" class="form-label">Numero</label>
                 <input
                   id="number"
                   type="text"
@@ -162,7 +202,7 @@
                   [class.is-invalid]="hasError('number')"
                 />
                 <div class="invalid-feedback" *ngIf="hasError('number', 'required')">
-                  Informe o número.
+                  Informe o numero.
                 </div>
               </div>
 
@@ -213,8 +253,12 @@
               </div>
             </div>
 
-            <div class="d-flex justify-content-end mt-4">
-              <button type="submit" class="btn btn-dark px-4">
+            <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mt-4">
+              <p class="register-note mb-0">
+                Conta local, carrinho mais rapido e visual grande.
+              </p>
+
+              <button type="submit" class="btn retro-btn retro-btn-primary px-4">
                 Cadastrar
               </button>
             </div>

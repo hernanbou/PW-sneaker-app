@@ -1,46 +1,49 @@
-<div class="container py-4">
-  <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+<div class="container py-4 py-lg-5 retro-page">
+  <section class="retro-panel cart-header mb-4">
     <div>
-      <h1 class="h3 mb-1">Carrinho</h1>
-      <p class="text-muted mb-0">
-        Revise os itens adicionados.
+      <span class="retro-kicker mb-3">Bag session</span>
+      <h1 class="retro-title is-medium mb-2">Carrinho em modo backstage</h1>
+      <p class="retro-subtitle mb-0">
+        Revise seus pares antes de fechar o drop.
       </p>
     </div>
 
-    <button type="button" class="btn btn-outline-dark" (click)="continueShopping()">
+    <button type="button" class="btn retro-btn retro-btn-dark" (click)="continueShopping()">
       Continuar comprando
     </button>
-  </div>
+  </section>
 
   <ng-container *ngIf="cart$ | async as items">
     <div class="card border-0 shadow-sm" *ngIf="items.length > 0; else emptyCartState">
       <div class="table-responsive">
-        <table class="table align-middle mb-0">
-          <thead class="table-light">
+        <table class="table align-middle mb-0 cart-table">
+          <thead>
             <tr>
               <th>Imagem</th>
               <th>Produto</th>
               <th>Tamanho</th>
               <th>Valor</th>
-              <th class="text-end">Ação</th>
+              <th class="text-end">Acao</th>
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let item of items">
-              <td>
+              <td data-label="Imagem">
                 <img
                   [src]="item.image"
                   [alt]="item.name"
                   class="cart-image rounded"
                 />
               </td>
-              <td>{{ item.name }}</td>
-              <td>{{ item.selectedSize }}</td>
-              <td>{{ item.price | currency: 'BRL' : 'symbol' : '1.2-2' }}</td>
-              <td class="text-end">
+              <td data-label="Produto">
+                <div class="cart-item-name">{{ item.name }}</div>
+              </td>
+              <td data-label="Tamanho" class="cart-item-size">{{ item.selectedSize }}</td>
+              <td data-label="Valor" class="cart-item-value">{{ item.price | currency: 'BRL' : 'symbol' : '1.2-2' }}</td>
+              <td data-label="Acao" class="text-end">
                 <button
                   type="button"
-                  class="btn btn-sm btn-outline-danger"
+                  class="btn btn-sm retro-btn retro-btn-outline"
                   (click)="removeItem(item.id)"
                 >
                   Remover
@@ -55,19 +58,19 @@
     <div class="card border-0 shadow-sm mt-4" *ngIf="items.length > 0">
       <div class="card-body d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3">
         <div>
-          <p class="mb-1 text-muted">Quantidade de itens</p>
+          <p class="cart-summary-label mb-1">Quantidade de itens</p>
           <p class="fs-5 fw-semibold mb-0">{{ items.length }}</p>
         </div>
 
         <div *ngIf="total$ | async as total">
-          <p class="mb-1 text-muted">Valor total da compra</p>
+          <p class="cart-summary-label mb-1">Valor total</p>
           <p class="fs-4 fw-bold mb-0">
             {{ total | currency: 'BRL' : 'symbol' : '1.2-2' }}
           </p>
         </div>
 
         <div>
-          <button type="button" class="btn btn-outline-danger" (click)="clearCart()">
+          <button type="button" class="btn retro-btn retro-btn-dark" (click)="clearCart()">
             Esvaziar carrinho
           </button>
         </div>
@@ -76,8 +79,8 @@
   </ng-container>
 
   <ng-template #emptyCartState>
-    <div class="alert alert-secondary">
-      Seu carrinho está vazio.
+    <div class="alert alert-warning">
+      Seu carrinho esta vazio. Escolha um par e volte para o backstage.
     </div>
   </ng-template>
 </div>

@@ -1,8 +1,21 @@
 main {
     min-height: 100vh;
-    background-color: #f8f9fa;
+    background: transparent;
+    overflow: clip;
 }
 
 .page-with-navbar {
-    padding-top: 88px; /* Adjust this value based on the height of your navbar */
+    padding-top: 126px;
+}
+
+@media (max-width: 991px) {
+    .page-with-navbar {
+        padding-top: 152px;
+    }
+}
+
+@media (max-width: 575px) {
+    .page-with-navbar {
+        padding-top: 186px;
+    }
 }
