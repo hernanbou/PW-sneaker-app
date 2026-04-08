@@ -1,0 +1,25 @@
+<div class="container py-4">
+  <div class="mb-4">
+    <h1 class="page-title mb-1">Vitrine de Tênis</h1>
+  </div>
+
+  <ng-container *ngIf="ready$ | async; else loadingState">
+    <div class="row g-4" *ngIf="filteredProducts$ | async as products">
+      <div class="col-12 col-md-6 col-lg-4" *ngFor="let product of products">
+        <app-product-card [product]="product"></app-product-card>
+      </div>
+
+      <div class="col-12" *ngIf="products.length === 0">
+        <div class="alert alert-warning mb-0">
+          Nenhum produto encontrado para a busca informada.
+        </div>
+      </div>
+    </div>
+  </ng-container>
+
+  <ng-template #loadingState>
+    <div class="alert alert-info">
+      Carregando produtos...
+    </div>
+  </ng-template>
+</div>

@@ -1,0 +1,75 @@
+<div class="login-page d-flex align-items-center">
+  <div class="container">
+    <div class="row justify-content-center g-4">
+      <div class="col-12 col-lg-5">
+        <div class="card shadow border-0">
+          <div class="card-body p-4 p-md-5">
+            <h1 class="h3 mb-4 text-center">Entrar</h1>
+
+            <div class="alert alert-success" *ngIf="successMessage">
+              {{ successMessage }}
+            </div>
+
+            <div class="alert alert-danger" *ngIf="errorMessage">
+              {{ errorMessage }}
+            </div>
+
+            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" novalidate>
+              <div class="mb-3">
+                <label for="email" class="form-label">E-mail</label>
+                <input
+                  id="email"
+                  type="email"
+                  class="form-control"
+                  formControlName="email"
+                  [class.is-invalid]="hasError('email')"
+                />
+                <div class="invalid-feedback" *ngIf="hasError('email', 'required')">
+                  Informe o e-mail.
+                </div>
+                <div class="invalid-feedback" *ngIf="hasError('email', 'email')">
+                  Informe um e-mail válido.
+                </div>
+              </div>
+
+              <div class="mb-4">
+                <label for="password" class="form-label">Senha</label>
+                <input
+                  id="password"
+                  type="password"
+                  class="form-control"
+                  formControlName="password"
+                  [class.is-invalid]="hasError('password')"
+                />
+                <div class="invalid-feedback" *ngIf="hasError('password', 'required')">
+                  Informe a senha.
+                </div>
+                <div class="invalid-feedback" *ngIf="hasError('password', 'minlength')">
+                  A senha deve ter pelo menos 6 caracteres.
+                </div>
+              </div>
+
+              <button type="submit" class="btn btn-dark w-100">
+                Entrar
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 col-lg-4">
+        <div class="card shadow border-0 h-100">
+          <div class="card-body p-4 p-md-5 d-flex flex-column justify-content-center">
+            <h2 class="h4 mb-3">Não é cadastrado?</h2>
+            <p class="text-muted mb-4">
+              Crie sua conta para salvar seus dados localmente e usar o carrinho.
+            </p>
+            <a routerLink="/register" class="btn btn-outline-dark">
+              Clique aqui para se cadastrar
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

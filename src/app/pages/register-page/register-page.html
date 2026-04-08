@@ -1,0 +1,226 @@
+<div class="container py-4">
+  <div class="row justify-content-center">
+    <div class="col-12 col-xl-10">
+      <div class="card shadow border-0">
+        <div class="card-body p-4 p-md-5">
+          <div class="mb-4">
+            <h1 class="h3 mb-1">Cadastro</h1>
+            <p class="text-muted mb-0">
+              Preencha os dados para criar seu usuário local.
+            </p>
+          </div>
+
+          <div class="alert alert-danger" *ngIf="errorMessage">
+            {{ errorMessage }}
+          </div>
+
+          <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" novalidate>
+            <div class="row g-3">
+              <div class="col-12">
+                <label for="fullName" class="form-label">Nome completo</label>
+                <input
+                  id="fullName"
+                  type="text"
+                  class="form-control"
+                  formControlName="fullName"
+                  [class.is-invalid]="hasError('fullName')"
+                />
+                <div class="invalid-feedback" *ngIf="hasError('fullName', 'required')">
+                  Informe o nome completo.
+                </div>
+                <div class="invalid-feedback" *ngIf="hasError('fullName', 'minlength')">
+                  Digite pelo menos 5 caracteres.
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <label for="email" class="form-label">E-mail</label>
+                <input
+                  id="email"
+                  type="email"
+                  class="form-control"
+                  formControlName="email"
+                  [class.is-invalid]="hasError('email')"
+                />
+                <div class="invalid-feedback" *ngIf="hasError('email', 'required')">
+                  Informe o e-mail.
+                </div>
+                <div class="invalid-feedback" *ngIf="hasError('email', 'email')">
+                  Informe um e-mail válido.
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <label for="cpf" class="form-label">CPF</label>
+                <input
+                  id="cpf"
+                  type="text"
+                  class="form-control"
+                  formControlName="cpf"
+                  placeholder="000.000.000-00"
+                  [class.is-invalid]="hasError('cpf')"
+                />
+                <div class="invalid-feedback" *ngIf="hasError('cpf', 'required')">
+                  Informe o CPF.
+                </div>
+                <div class="invalid-feedback" *ngIf="hasError('cpf', 'pattern')">
+                  Informe um CPF válido.
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <label for="password" class="form-label">Senha</label>
+                <input
+                  id="password"
+                  type="password"
+                  class="form-control"
+                  formControlName="password"
+                  [class.is-invalid]="hasError('password') || hasPasswordMismatch()"
+                />
+                <div class="invalid-feedback" *ngIf="hasError('password', 'required')">
+                  Informe a senha.
+                </div>
+                <div class="invalid-feedback" *ngIf="hasError('password', 'minlength')">
+                  A senha deve ter pelo menos 6 caracteres.
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <label for="confirmPassword" class="form-label">Confirmar senha</label>
+                <input
+                  id="confirmPassword"
+                  type="password"
+                  class="form-control"
+                  formControlName="confirmPassword"
+                  [class.is-invalid]="hasError('confirmPassword') || hasPasswordMismatch()"
+                />
+                <div class="invalid-feedback" *ngIf="hasError('confirmPassword', 'required')">
+                  Confirme a senha.
+                </div>
+                <div class="invalid-feedback" *ngIf="hasPasswordMismatch()">
+                  As senhas precisam ser iguais.
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <label for="phone" class="form-label">Celular</label>
+                <input
+                  id="phone"
+                  type="text"
+                  class="form-control"
+                  formControlName="phone"
+                  placeholder="(11) 99999-9999"
+                  [class.is-invalid]="hasError('phone')"
+                />
+                <div class="invalid-feedback" *ngIf="hasError('phone', 'required')">
+                  Informe o celular.
+                </div>
+                <div class="invalid-feedback" *ngIf="hasError('phone', 'pattern')">
+                  Informe um celular válido.
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <label for="cep" class="form-label">CEP</label>
+                <input
+                  id="cep"
+                  type="text"
+                  class="form-control"
+                  formControlName="cep"
+                  placeholder="00000-000"
+                  [class.is-invalid]="hasError('cep')"
+                />
+                <div class="invalid-feedback" *ngIf="hasError('cep', 'required')">
+                  Informe o CEP.
+                </div>
+                <div class="invalid-feedback" *ngIf="hasError('cep', 'pattern')">
+                  Informe um CEP válido.
+                </div>
+              </div>
+
+              <div class="col-md-8">
+                <label for="address" class="form-label">Endereço</label>
+                <input
+                  id="address"
+                  type="text"
+                  class="form-control"
+                  formControlName="address"
+                  [class.is-invalid]="hasError('address')"
+                />
+                <div class="invalid-feedback" *ngIf="hasError('address', 'required')">
+                  Informe o endereço.
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <label for="number" class="form-label">Número</label>
+                <input
+                  id="number"
+                  type="text"
+                  class="form-control"
+                  formControlName="number"
+                  [class.is-invalid]="hasError('number')"
+                />
+                <div class="invalid-feedback" *ngIf="hasError('number', 'required')">
+                  Informe o número.
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <label for="complement" class="form-label">Complemento</label>
+                <input
+                  id="complement"
+                  type="text"
+                  class="form-control"
+                  formControlName="complement"
+                  [class.is-invalid]="hasError('complement')"
+                />
+                <div class="invalid-feedback" *ngIf="hasError('complement', 'required')">
+                  Informe o complemento.
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <label for="city" class="form-label">Cidade</label>
+                <input
+                  id="city"
+                  type="text"
+                  class="form-control"
+                  formControlName="city"
+                  [class.is-invalid]="hasError('city')"
+                />
+                <div class="invalid-feedback" *ngIf="hasError('city', 'required')">
+                  Informe a cidade.
+                </div>
+              </div>
+
+              <div class="col-md-2">
+                <label for="state" class="form-label">UF</label>
+                <input
+                  id="state"
+                  type="text"
+                  class="form-control text-uppercase"
+                  formControlName="state"
+                  maxlength="2"
+                  [class.is-invalid]="hasError('state')"
+                />
+                <div class="invalid-feedback" *ngIf="hasError('state', 'required')">
+                  Informe a UF.
+                </div>
+                <div class="invalid-feedback" *ngIf="hasError('state', 'pattern')">
+                  Use 2 letras.
+                </div>
+              </div>
+            </div>
+
+            <div class="d-flex justify-content-end mt-4">
+              <button type="submit" class="btn btn-dark px-4">
+                Cadastrar
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

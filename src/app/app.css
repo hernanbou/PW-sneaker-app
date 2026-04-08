@@ -1,0 +1,8 @@
+main {
+    min-height: 100vh;
+    background-color: #f8f9fa;
+}
+
+.page-with-navbar {
+    padding-top: 88px; /* Adjust this value based on the height of your navbar */
+}

@@ -1,0 +1,88 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top shadow-sm">
+  <div class="container navbar-layout">
+    <button
+      type="button"
+      class="navbar-brand brand-button"
+      (click)="goToHome()"
+    >
+      Sneaker Store
+    </button>
+
+    <div class="navbar-search-wrapper">
+      <form
+        class="d-flex gap-2 w-100"
+        [formGroup]="searchForm"
+        (ngSubmit)="submitSearch()"
+      >
+        <input
+          type="search"
+          class="form-control"
+          formControlName="term"
+          placeholder="Buscar..."
+        />
+        <button type="submit" class="btn btn-warning fw-semibold px-4">
+          OK
+        </button>
+      </form>
+    </div>
+
+    <div class="navbar-actions desktop-actions">
+      <button
+        type="button"
+        class="btn btn-outline-light"
+        (click)="goToCart()"
+      >
+        Carrinho
+      </button>
+
+      <button
+        type="button"
+        class="btn btn-outline-light d-flex align-items-center gap-2"
+        (click)="goToUser()"
+      >
+        <span class="fs-5"><img src="images/user-icon.svg" alt="User Icon"></span>
+        <span class="d-none d-md-inline">{{ currentUserLabel }}</span>
+      </button>
+    </div>
+
+    <button
+      type="button"
+      class="mobile-menu-toggle"
+      (click)="toggleMobileMenu()"
+      [attr.aria-expanded]="isMobileMenuOpen"
+      [attr.aria-label]="isMobileMenuOpen ? 'Fechar menu' : 'Abrir menu'"
+    >
+      <img
+        [src]="isMobileMenuOpen ? 'images/menu-x-icon.svg' : 'images/menu-icon.svg'"
+        [alt]="isMobileMenuOpen ? 'Fechar menu' : 'Abrir menu'"
+      />
+    </button>
+  </div>
+
+  <button
+    type="button"
+    class="mobile-menu-overlay"
+    [class.is-open]="isMobileMenuOpen"
+    (click)="closeMobileMenu()"
+    aria-label="Fechar menu lateral"
+  ></button>
+
+  <div class="mobile-menu-panel" [class.is-open]="isMobileMenuOpen">
+    <button
+      type="button"
+      class="btn btn-outline-light mobile-menu-action"
+      (click)="goToCart()"
+    >
+      Carrinho
+    </button>
+
+    <button
+      type="button"
+      class="btn btn-outline-light mobile-menu-action d-flex align-items-center justify-content-center gap-2"
+      (click)="goToUser()"
+    >
+      <span class="fs-5"><img src="images/user-icon.svg" alt="User Icon"></span>
+      <span>{{ currentUserLabel }}</span>
+    </button>
+  </div>
+</nav>
