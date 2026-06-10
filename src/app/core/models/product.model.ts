@@ -1,0 +1,20 @@
+export interface Product {
+  id: number;
+  name: string;
+  description: string;
+  price: number;
+  image: string;
+  stock: number;
+  sizes: number[];
+  brand?: string;
+  line?: string;
+  model?: string;
+  category?: string;
+  gender?: string;
+  colorway?: string;
+  featured?: boolean;
+  rating?: number;
+  reviewCount?: number;
+  tags?: string[];
+  features?: string[];
+};
