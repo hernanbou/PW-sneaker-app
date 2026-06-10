@@ -1,0 +1,294 @@
+<div class="container py-4 py-lg-5 retro-page" *ngIf="currentUser as user">
+  <section class="retro-panel user-header mb-4">
+    <div>
+      <span class="retro-kicker mb-3">Minha conta</span>
+      <h1 class="retro-title is-medium mb-2">{{ user.fullName }}</h1>
+      <p class="retro-subtitle mb-0">
+        Perfil, endereco e historico dos pedidos salvos no backend.
+      </p>
+    </div>
+
+    <div class="user-header-actions">
+      <button type="button" class="btn retro-btn retro-btn-dark" (click)="goToHome()">
+        Catalogo
+      </button>
+
+      <button type="button" class="btn retro-btn retro-btn" (click)="logout()">
+        Sair
+      </button>
+    </div>
+  </section>
+
+  <div class="row g-4 align-items-start mb-4">
+    <div class="col-12 col-xl-7">
+      <section class="card border-0 shadow-sm user-card">
+        <div class="card-body p-4 p-md-5">
+          <span class="retro-kicker mb-3">Dados salvos</span>
+          <div class="profile-card-heading mb-4">
+            <h2 class="retro-title is-medium mb-0">Perfil</h2>
+
+            <button
+              type="button"
+              class="btn retro-btn retro-btn-primary"
+              *ngIf="!isEditing"
+              (click)="startEditing()"
+            >
+              Editar dados
+            </button>
+          </div>
+
+          <div class="alert alert-success" *ngIf="successMessage">
+            {{ successMessage }}
+          </div>
+
+          <div class="alert alert-danger" *ngIf="errorMessage">
+            {{ errorMessage }}
+          </div>
+
+          <ng-container *ngIf="!isEditing; else editProfileForm">
+            <div class="user-data-grid">
+              <div class="user-data-item">
+                <span>Nome</span>
+                <strong>{{ user.fullName }}</strong>
+              </div>
+
+              <div class="user-data-item">
+                <span>E-mail</span>
+                <strong>{{ user.email }}</strong>
+              </div>
+
+              <div class="user-data-item">
+                <span>CPF</span>
+                <strong>{{ formatCpf(user.cpf) }}</strong>
+              </div>
+
+              <div class="user-data-item">
+                <span>Celular</span>
+                <strong>{{ formatPhone(user.phone) }}</strong>
+              </div>
+            </div>
+
+            <div class="user-address mt-4">
+              <div class="form-section-label mb-3">Endereco</div>
+
+              <p class="mb-1">
+                {{ user.address }}, {{ user.number }}
+                <span *ngIf="user.complement">- {{ user.complement }}</span>
+              </p>
+              <p class="mb-0">
+                {{ user.city }} / {{ user.state }} - CEP {{ formatCep(user.cep) }}
+              </p>
+            </div>
+          </ng-container>
+
+          <ng-template #editProfileForm>
+            <form [formGroup]="profileForm" (ngSubmit)="saveProfile()" novalidate>
+              <div class="row g-3">
+                <div class="col-12">
+                  <div class="form-section-label">Identidade</div>
+                </div>
+
+                <div class="col-12">
+                  <label for="profileFullName" class="form-label">Nome completo</label>
+                  <input
+                    id="profileFullName"
+                    type="text"
+                    class="form-control"
+                    formControlName="fullName"
+                    [class.is-invalid]="hasError('fullName')"
+                  />
+                </div>
+
+                <div class="col-md-6">
+                  <label for="profileEmail" class="form-label">E-mail</label>
+                  <input
+                    id="profileEmail"
+                    type="email"
+                    class="form-control"
+                    formControlName="email"
+                    [class.is-invalid]="hasError('email')"
+                  />
+                </div>
+
+                <div class="col-md-6">
+                  <label for="profileCpf" class="form-label">CPF</label>
+                  <input
+                    id="profileCpf"
+                    type="text"
+                    class="form-control"
+                    formControlName="cpf"
+                    [class.is-invalid]="hasError('cpf')"
+                  />
+                </div>
+
+                <div class="col-md-6">
+                  <label for="profilePhone" class="form-label">Celular</label>
+                  <input
+                    id="profilePhone"
+                    type="text"
+                    class="form-control"
+                    formControlName="phone"
+                    [class.is-invalid]="hasError('phone')"
+                  />
+                </div>
+
+                <div class="col-md-6">
+                  <label for="profileCep" class="form-label">CEP</label>
+                  <input
+                    id="profileCep"
+                    type="text"
+                    class="form-control"
+                    formControlName="cep"
+                    [class.is-invalid]="hasError('cep')"
+                  />
+                </div>
+
+                <div class="col-12 mt-4">
+                  <div class="form-section-label">Endereco</div>
+                </div>
+
+                <div class="col-md-8">
+                  <label for="profileAddress" class="form-label">Endereco</label>
+                  <input
+                    id="profileAddress"
+                    type="text"
+                    class="form-control"
+                    formControlName="address"
+                    [class.is-invalid]="hasError('address')"
+                  />
+                </div>
+
+                <div class="col-md-4">
+                  <label for="profileNumber" class="form-label">Numero</label>
+                  <input
+                    id="profileNumber"
+                    type="text"
+                    class="form-control"
+                    formControlName="number"
+                    [class.is-invalid]="hasError('number')"
+                  />
+                </div>
+
+                <div class="col-md-6">
+                  <label for="profileComplement" class="form-label">Complemento</label>
+                  <input
+                    id="profileComplement"
+                    type="text"
+                    class="form-control"
+                    formControlName="complement"
+                  />
+                </div>
+
+                <div class="col-md-4">
+                  <label for="profileCity" class="form-label">Cidade</label>
+                  <input
+                    id="profileCity"
+                    type="text"
+                    class="form-control"
+                    formControlName="city"
+                    [class.is-invalid]="hasError('city')"
+                  />
+                </div>
+
+                <div class="col-md-2">
+                  <label for="profileState" class="form-label">UF</label>
+                  <input
+                    id="profileState"
+                    type="text"
+                    class="form-control text-uppercase"
+                    formControlName="state"
+                    maxlength="2"
+                    [class.is-invalid]="hasError('state')"
+                  />
+                </div>
+              </div>
+
+              <div class="profile-form-actions mt-4">
+                <button type="submit" class="btn retro-btn retro-btn-primary">
+                  Salvar dados
+                </button>
+
+                <button type="button" class="btn retro-btn retro-btn-outline" (click)="cancelEditing()">
+                  Cancelar
+                </button>
+              </div>
+            </form>
+          </ng-template>
+        </div>
+      </section>
+    </div>
+
+    <div class="col-12 col-xl-5">
+      <aside class="retro-panel user-summary">
+        <span class="retro-kicker mb-3">Resumo</span>
+        <h2 class="retro-title is-medium mb-4">Conta ativa</h2>
+
+        <div class="retro-stat-grid mb-4">
+          <div class="retro-stat">
+            <span class="retro-stat-label">Pedidos</span>
+            <strong class="retro-stat-value">{{ orders.length }}</strong>
+          </div>
+
+          <div class="retro-stat">
+            <span class="retro-stat-label">Carrinho</span>
+            <strong class="retro-stat-value">{{ cartItemCount }}</strong>
+          </div>
+        </div>
+
+        <div class="d-flex flex-column flex-sm-row flex-xl-column gap-3">
+          <button type="button" class="btn retro-btn retro-btn-primary" (click)="goToCheckout()">
+            Ir para pagamento
+          </button>
+
+          <button type="button" class="btn retro-btn retro-btn-dark" (click)="goToCart()">
+            Ver carrinho
+          </button>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <section class="orders-shell">
+    <div class="orders-heading mb-4">
+      <div>
+        <span class="retro-kicker mb-3">Historico</span>
+        <h2 class="retro-title is-medium mb-2">Meus pedidos</h2>
+      </div>
+    </div>
+
+    <ng-container *ngIf="orders.length > 0; else emptyOrdersState">
+      <article class="order-card" *ngFor="let order of orders">
+        <div class="order-card-header">
+          <div>
+            <span class="order-id">{{ order.id }}</span>
+            <p class="order-date mb-0">{{ formatDate(order.createdAt) }}</p>
+            <p class="order-payment mb-0">{{ getPaymentSummary(order) }}</p>
+          </div>
+
+          <span class="order-status">{{ order.status }}</span>
+        </div>
+
+        <div class="order-items">
+          <div class="order-item" *ngFor="let item of order.items">
+            <img [src]="item.image" [alt]="item.name" class="order-item-image" />
+            <div>
+              <strong>{{ item.name }}</strong>
+              <span>Tam {{ item.selectedSize }} - Qtd {{ item.quantity }}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="order-footer">
+          <span>{{ order.items.length }} item(ns)</span>
+          <strong>{{ order.total | currency: 'BRL' : 'symbol' : '1.2-2' }}</strong>
+        </div>
+      </article>
+    </ng-container>
+  </section>
+
+  <ng-template #emptyOrdersState>
+    <div class="alert alert-warning">
+      Voce ainda nao fechou nenhum pedido.
+    </div>
+  </ng-template>
+</div>

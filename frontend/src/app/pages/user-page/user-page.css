@@ -1,0 +1,243 @@
+.user-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: clamp(1.4rem, 3vw, 2.2rem);
+}
+
+.user-header-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: flex-end;
+}
+
+.user-card,
+.order-card {
+  color: var(--retro-cream);
+  border-color: rgba(246, 231, 199, 0.16) !important;
+  background: rgba(7, 6, 8, 0.54);
+}
+
+.user-card::before,
+.order-card::before {
+  background: linear-gradient(90deg, var(--retro-gold), var(--retro-burgundy), var(--retro-green));
+}
+
+.profile-card-heading,
+.profile-form-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.profile-form-actions {
+  justify-content: flex-end;
+  flex-wrap: wrap;
+}
+
+.user-card .form-label {
+  color: rgba(246, 231, 199, 0.88);
+}
+
+.user-data-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.user-data-item,
+.user-address {
+  padding: 1rem;
+  border: 1px solid rgba(246, 231, 199, 0.12);
+  border-radius: 1.2rem;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.user-data-item span {
+  display: block;
+  margin-bottom: 0.35rem;
+  color: rgba(246, 231, 199, 0.62);
+  font-family: var(--retro-font-display);
+  font-size: 0.98rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.user-data-item strong {
+  color: #fff;
+  overflow-wrap: anywhere;
+}
+
+.user-address {
+  color: #fff;
+  font-weight: 700;
+}
+
+.form-section-label {
+  display: inline-flex;
+  padding: 0.35rem 0.85rem;
+  border-radius: 999px;
+  color: var(--retro-gold);
+  font-family: var(--retro-font-display);
+  font-size: 1.08rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: rgba(23, 19, 20, 0.92);
+}
+
+.user-summary {
+  position: sticky;
+  top: 150px;
+  padding: clamp(1.4rem, 3vw, 2.2rem);
+}
+
+.orders-shell {
+  padding: clamp(1.5rem, 3vw, 2.5rem);
+  border: 1px solid rgba(246, 231, 199, 0.16);
+  border-radius: var(--retro-radius);
+  background: rgba(8, 6, 7, 0.48);
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.18);
+}
+
+.orders-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.order-card {
+  position: relative;
+  overflow: hidden;
+  padding: 1.25rem;
+  border: 3px solid var(--retro-outline);
+  border-radius: var(--retro-radius);
+  box-shadow: var(--retro-shadow);
+}
+
+.order-card + .order-card {
+  margin-top: 1rem;
+}
+
+.order-card-header,
+.order-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.order-id {
+  color: #fff;
+  font-family: var(--retro-font-display);
+  font-size: 1.5rem;
+  letter-spacing: 0.08em;
+}
+
+.order-date {
+  color: rgba(246, 231, 199, 0.66);
+  font-weight: 700;
+}
+
+.order-payment {
+  margin-top: 0.25rem;
+  color: #78d8a6;
+  font-weight: 900;
+}
+
+.order-status {
+  padding: 0.45rem 0.8rem;
+  border-radius: 999px;
+  color: var(--retro-ink);
+  font-weight: 900;
+  background: var(--retro-gold);
+}
+
+.order-items {
+  display: grid;
+  gap: 0.8rem;
+  margin: 1.2rem 0;
+}
+
+.order-item {
+  display: grid;
+  grid-template-columns: 58px 1fr;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.order-item-image {
+  width: 58px;
+  height: 58px;
+  object-fit: cover;
+  border: 2px solid rgba(246, 231, 199, 0.18);
+  border-radius: 0.85rem;
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.order-item strong,
+.order-item span {
+  display: block;
+}
+
+.order-item strong {
+  color: #fff;
+}
+
+.order-item span,
+.order-footer span {
+  color: rgba(246, 231, 199, 0.68);
+  font-weight: 700;
+}
+
+.order-footer {
+  padding-top: 1rem;
+  border-top: 1px solid rgba(246, 231, 199, 0.12);
+  color: #fff;
+  font-size: 1.15rem;
+}
+
+@media (max-width: 1199px) {
+  .user-summary {
+    position: static;
+  }
+}
+
+@media (max-width: 767px) {
+  .user-header,
+  .order-card-header,
+  .order-footer {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .user-header-actions,
+  .user-header-actions .retro-btn {
+    width: 100%;
+  }
+
+  .user-data-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .profile-card-heading,
+  .profile-form-actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .profile-card-heading .retro-btn,
+  .profile-form-actions .retro-btn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 575px) {
+  .user-card .card-body,
+  .orders-shell {
+    padding: 1.2rem !important;
+  }
+}

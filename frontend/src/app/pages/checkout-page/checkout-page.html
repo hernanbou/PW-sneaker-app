@@ -1,0 +1,386 @@
+<div class="container py-4 py-lg-5 retro-page">
+  <section class="retro-panel checkout-header mb-4">
+    <div>
+      <span class="retro-kicker mb-3">Pagamento</span>
+      <h1 class="retro-title is-medium mb-2">Página de Pagamento</h1>
+      <p class="retro-subtitle mb-0">
+        Confirme entrega, pagamento e mande o drop para separacao.
+      </p>
+    </div>
+
+    <button type="button" class="btn retro-btn retro-btn-dark" (click)="goToCart()">
+      Voltar ao carrinho
+    </button>
+  </section>
+
+  <section class="retro-panel checkout-success mb-4" *ngIf="placedOrderId">
+    <span class="retro-kicker mb-3">Pedido recebido</span>
+    <h2 class="retro-title is-medium mb-3">{{ placedOrderId }}</h2>
+    <p class="retro-subtitle mb-4">{{ successMessage }}</p>
+
+    <div class="d-flex flex-column flex-sm-row gap-3">
+      <button type="button" class="btn retro-btn retro-btn-primary" (click)="goToUser()">
+        Ver meus pedidos
+      </button>
+
+      <button type="button" class="btn retro-btn retro-btn-dark" (click)="goToHome()">
+        Continuar comprando
+      </button>
+    </div>
+  </section>
+
+  <ng-container *ngIf="!placedOrderId">
+    <ng-container *ngIf="cart$ | async as items">
+      <ng-container *ngIf="items.length > 0; else emptyCartState">
+        <div class="row g-4 align-items-start">
+          <div class="col-12 col-xl-7">
+            <div class="card border-0 shadow-sm checkout-card">
+              <div class="card-body p-4 p-md-5">
+                <span class="retro-kicker mb-3">Ficha de entrega</span>
+                <h2 class="retro-title is-medium mb-4">Dados do pedido</h2>
+
+                <div class="alert alert-danger" *ngIf="errorMessage">
+                  {{ errorMessage }}
+                </div>
+
+                <form [formGroup]="checkoutForm" (ngSubmit)="submitOrder()" novalidate>
+                  <div class="row g-3">
+                    <div class="col-12">
+                      <div class="form-section-label">Contato</div>
+                    </div>
+
+                    <div class="col-md-7">
+                      <label for="fullName" class="form-label">Nome completo</label>
+                      <input
+                        id="fullName"
+                        type="text"
+                        class="form-control"
+                        formControlName="fullName"
+                        [class.is-invalid]="hasError('fullName')"
+                      />
+                    </div>
+
+                    <div class="col-md-5">
+                      <label for="phone" class="form-label">Celular</label>
+                      <input
+                        id="phone"
+                        type="text"
+                        class="form-control"
+                        formControlName="phone"
+                        [class.is-invalid]="hasError('phone')"
+                      />
+                    </div>
+
+                    <div class="col-12">
+                      <label for="email" class="form-label">E-mail</label>
+                      <input
+                        id="email"
+                        type="email"
+                        class="form-control"
+                        formControlName="email"
+                        [class.is-invalid]="hasError('email')"
+                      />
+                    </div>
+
+                    <div class="col-12 mt-4">
+                      <div class="form-section-label">Entrega</div>
+                    </div>
+
+                    <div class="col-md-4">
+                      <label for="cep" class="form-label">CEP</label>
+                      <input
+                        id="cep"
+                        type="text"
+                        class="form-control"
+                        formControlName="cep"
+                        [class.is-invalid]="hasError('cep')"
+                      />
+                      <div class="invalid-feedback" *ngIf="hasError('cep', 'pattern')">
+                        Informe um CEP valido.
+                      </div>
+                    </div>
+
+                    <div class="col-md-8">
+                      <label for="address" class="form-label">Endereco</label>
+                      <input
+                        id="address"
+                        type="text"
+                        class="form-control"
+                        formControlName="address"
+                        [class.is-invalid]="hasError('address')"
+                      />
+                    </div>
+
+                    <div class="col-md-4">
+                      <label for="number" class="form-label">Numero</label>
+                      <input
+                        id="number"
+                        type="text"
+                        class="form-control"
+                        formControlName="number"
+                        [class.is-invalid]="hasError('number')"
+                      />
+                    </div>
+
+                    <div class="col-md-8">
+                      <label for="complement" class="form-label">Complemento</label>
+                      <input
+                        id="complement"
+                        type="text"
+                        class="form-control"
+                        formControlName="complement"
+                      />
+                    </div>
+
+                    <div class="col-md-8">
+                      <label for="city" class="form-label">Cidade</label>
+                      <input
+                        id="city"
+                        type="text"
+                        class="form-control"
+                        formControlName="city"
+                        [class.is-invalid]="hasError('city')"
+                      />
+                    </div>
+
+                    <div class="col-md-4">
+                      <label for="state" class="form-label">UF</label>
+                      <input
+                        id="state"
+                        type="text"
+                        class="form-control text-uppercase"
+                        formControlName="state"
+                        maxlength="2"
+                        [class.is-invalid]="hasError('state')"
+                      />
+                      <div class="invalid-feedback" *ngIf="hasError('state', 'pattern')">
+                        Use 2 letras.
+                      </div>
+                    </div>
+
+                    <div class="col-12 mt-4">
+                      <div class="form-section-label">Pagamento</div>
+                      <p class="payment-discount-note mb-0">
+                        Pix -15% | Boleto -10% | Credito ate 3x -5%
+                      </p>
+                      <p class="payment-selected-note mb-0">
+                        {{ getSelectedPaymentLabel() }}
+                      </p>
+                    </div>
+
+                    <div class="col-12">
+                      <div class="payment-option-grid">
+                        <label
+                          class="payment-option"
+                          *ngFor="let option of paymentOptions"
+                          [class.is-selected]="isPaymentSelected(option.method)"
+                        >
+                          <input
+                            type="checkbox"
+                            [checked]="isPaymentSelected(option.method)"
+                            (change)="selectPayment(option.method)"
+                          />
+
+                          <span class="payment-option-copy">
+                            <strong>{{ option.label }}</strong>
+                            <small>{{ option.discount }} de desconto</small>
+                          </span>
+                        </label>
+                      </div>
+                    </div>
+
+                    <ng-container *ngIf="isCreditCardSelected(); else cashPaymentState">
+                      <div class="col-12 mt-2">
+                        <div class="credit-card-box">
+                          <div class="row g-3">
+                            <div class="col-md-7">
+                              <label for="cardNumber" class="form-label">Numero do cartao</label>
+                              <input
+                                id="cardNumber"
+                                type="text"
+                                class="form-control"
+                                formControlName="cardNumber"
+                                placeholder="0000 0000 0000 0000"
+                                [class.is-invalid]="hasError('cardNumber')"
+                              />
+                              <div class="invalid-feedback" *ngIf="hasError('cardNumber', 'required')">
+                                Informe o numero do cartao.
+                              </div>
+                              <div class="invalid-feedback" *ngIf="hasError('cardNumber', 'pattern')">
+                                Informe um numero de cartao valido.
+                              </div>
+                            </div>
+
+                            <div class="col-md-5">
+                              <label for="installments" class="form-label">Parcelas</label>
+                              <select
+                                id="installments"
+                                class="form-control"
+                                formControlName="installments"
+                              >
+                                <option
+                                  *ngFor="let installment of installmentOptions"
+                                  [ngValue]="installment"
+                                >
+                                  {{ installment }}x
+                                </option>
+                              </select>
+                            </div>
+
+                            <div class="col-md-7">
+                              <label for="cardName" class="form-label">Nome no cartao</label>
+                              <input
+                                id="cardName"
+                                type="text"
+                                class="form-control"
+                                formControlName="cardName"
+                                [class.is-invalid]="hasError('cardName')"
+                              />
+                              <div class="invalid-feedback" *ngIf="hasError('cardName', 'required')">
+                                Informe o nome impresso no cartao.
+                              </div>
+                              <div class="invalid-feedback" *ngIf="hasError('cardName', 'minlength')">
+                                Digite pelo menos 5 caracteres.
+                              </div>
+                            </div>
+
+                            <div class="col-md-5">
+                              <label for="cardCpf" class="form-label">CPF</label>
+                              <input
+                                id="cardCpf"
+                                type="text"
+                                class="form-control"
+                                formControlName="cardCpf"
+                                placeholder="000.000.000-00"
+                                [class.is-invalid]="hasError('cardCpf')"
+                              />
+                              <div class="invalid-feedback" *ngIf="hasError('cardCpf', 'required')">
+                                Informe o CPF do titular.
+                              </div>
+                              <div class="invalid-feedback" *ngIf="hasError('cardCpf', 'pattern')">
+                                Informe um CPF valido.
+                              </div>
+                            </div>
+
+                            <div class="col-md-6">
+                              <label for="cardExpiration" class="form-label">Vencimento</label>
+                              <input
+                                id="cardExpiration"
+                                type="text"
+                                class="form-control"
+                                formControlName="cardExpiration"
+                                placeholder="MM/AA"
+                                [class.is-invalid]="hasError('cardExpiration')"
+                              />
+                              <div class="invalid-feedback" *ngIf="hasError('cardExpiration', 'required')">
+                                Informe a validade do cartao.
+                              </div>
+                              <div class="invalid-feedback" *ngIf="hasError('cardExpiration', 'pattern')">
+                                Use o formato MM/AA.
+                              </div>
+                            </div>
+
+                            <div class="col-md-6">
+                              <label for="cardCvv" class="form-label">CVV</label>
+                              <input
+                                id="cardCvv"
+                                type="password"
+                                class="form-control"
+                                formControlName="cardCvv"
+                                maxlength="4"
+                                [class.is-invalid]="hasError('cardCvv')"
+                              />
+                              <div class="invalid-feedback" *ngIf="hasError('cardCvv', 'required')">
+                                Informe o CVV.
+                              </div>
+                              <div class="invalid-feedback" *ngIf="hasError('cardCvv', 'pattern')">
+                                Use 3 ou 4 digitos.
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </ng-container>
+
+                    <ng-template #cashPaymentState>
+                      <div class="col-12">
+                        <label for="installments" class="form-label">Parcelas</label>
+                        <select
+                          id="installments"
+                          class="form-control"
+                          formControlName="installments"
+                        >
+                          <option [ngValue]="1">A vista</option>
+                        </select>
+                      </div>
+                    </ng-template>
+                  </div>
+
+                  <button type="submit" class="btn retro-btn retro-btn-primary w-100 mt-4">
+                    Confirmar pedido
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-xl-5">
+            <aside class="checkout-summary">
+              <div class="checkout-summary-header">
+                <span class="retro-kicker mb-3">Resumo</span>
+                <h2 class="retro-title is-medium mb-0">Sacola</h2>
+              </div>
+
+              <div class="checkout-items">
+                <article class="checkout-item" *ngFor="let item of items">
+                  <img [src]="item.image" [alt]="item.name" class="checkout-item-image" />
+
+                  <div>
+                    <h3 class="checkout-item-name mb-1">{{ item.name }}</h3>
+                    <p class="checkout-item-meta mb-0">
+                      Tam {{ item.selectedSize }} - Qtd {{ item.quantity }}
+                    </p>
+                  </div>
+
+                  <strong class="checkout-item-price">
+                    {{ item.price | currency: 'BRL' : 'symbol' : '1.2-2' }}
+                  </strong>
+                </article>
+              </div>
+
+              <div class="checkout-totals" *ngIf="subtotal$ | async as subtotal">
+                <div class="checkout-total-line">
+                  <span>Subtotal</span>
+                  <strong>{{ subtotal | currency: 'BRL' : 'symbol' : '1.2-2' }}</strong>
+                </div>
+
+                <div class="checkout-total-line">
+                  <span>Frete</span>
+                  <strong>
+                    {{ calculateShipping(subtotal) === 0 ? 'Gratis' : (calculateShipping(subtotal) | currency: 'BRL' : 'symbol' : '1.2-2') }}
+                  </strong>
+                </div>
+
+                <div class="checkout-total-line discount-line" *ngIf="calculateDiscount(subtotal) > 0">
+                  <span>Desconto {{ getDiscountPercentage() }}%</span>
+                  <strong>-{{ calculateDiscount(subtotal) | currency: 'BRL' : 'symbol' : '1.2-2' }}</strong>
+                </div>
+
+                <div class="checkout-total-line is-grand">
+                  <span>Total</span>
+                  <strong>{{ calculateFinalTotal(subtotal) | currency: 'BRL' : 'symbol' : '1.2-2' }}</strong>
+                </div>
+              </div>
+            </aside>
+          </div>
+        </div>
+      </ng-container>
+    </ng-container>
+  </ng-container>
+
+  <ng-template #emptyCartState>
+    <div class="alert alert-warning">
+      Seu carrinho esta vazio. Adicione um par antes de fechar pedido.
+    </div>
+  </ng-template>
+</div>
